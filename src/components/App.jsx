@@ -1,11 +1,10 @@
 import './App.css';
-import BasicExample from './NavBar/NavBar.jsx';
+import NavBar from './NavBar/NavBar.jsx';
 
 function App() {
   return (
-    <div>
-        <BasicExample />
-        <h1>Hola mundo</h1>
+    <div className="App">
+        <NavBar />
     </div>
     
   );
