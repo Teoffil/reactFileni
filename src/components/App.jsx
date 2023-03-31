@@ -1,8 +1,13 @@
 import './App.css';
+import BasicExample from './NavBar/NavBar.jsx';
 
 function App() {
   return (
-    <h1>Hola mundo</h1>
+    <div>
+        <BasicExample />
+        <h1>Hola mundo</h1>
+    </div>
+    
   );
 }
 
