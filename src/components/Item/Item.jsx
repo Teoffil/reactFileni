@@ -5,7 +5,7 @@ import { Card, Button } from 'react-bootstrap';
 
 const Item = ({id, name, img, price, stock}) => {
     return (
-        <div>
+        <div className='cardAltura'>
             <Card>
                 <Card.Img variant="top" src={img} alt={name} />
                 <Card.Body>
