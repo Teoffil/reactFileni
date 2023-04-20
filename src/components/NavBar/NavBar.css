@@ -1,0 +1,10 @@
+.Option,
+.ActiveOption {
+    color: #000000; /* cambia el color del texto */
+    text-decoration: none; /* quita la raya debajo del texto */
+}
+
+.ActiveOption {
+    font-weight: bold; /* agrega negrita al link activo */
+    background-color: #0C3429;
+}
