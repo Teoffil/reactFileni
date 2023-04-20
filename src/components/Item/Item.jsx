@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import './Item.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Button } from 'react-bootstrap';
+import './Item.css';
 
 const Item = ({id, name, img, price, stock}) => {
     return (
-        <div className='cardAltura'>
             <Card>
                 <Card.Img variant="top" src={img} alt={name} />
                 <Card.Body>
@@ -19,7 +18,6 @@ const Item = ({id, name, img, price, stock}) => {
                     </Link>
                 </Card.Body>
             </Card>
-        </div>
     );
 }
 

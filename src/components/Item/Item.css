@@ -1,8 +1,13 @@
 .card {
     max-width: 300px;
-    margin: 0 10px 20px 10px;
+    margin: 0 10px;
 }
 
-.cardAltura {
+/* .cardAltura {
     height: 400px;
-}
+    margin-bottom: 20px;
+} */
+
+.card-group > .card:last-child {
+    float: left;
+}  
