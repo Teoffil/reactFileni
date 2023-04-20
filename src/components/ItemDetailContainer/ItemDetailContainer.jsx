@@ -4,6 +4,7 @@ import { getProductById } from "../../asyncMock.js";
 import ItemDetail  from "../ItemDetail/ItemDetail.jsx";
 import { useParams } from "react-router-dom";
 
+
 const ItemDetailContainer = () => {
 
     const [product, setProduct] = useState(null)
