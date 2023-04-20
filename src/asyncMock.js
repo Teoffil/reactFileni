@@ -25,3 +25,12 @@ export const getProductById = (productId) => {
         }, 500)
     })
 }
+
+export const getProductsByCategory = (category) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const filteredProducts = products.filter(prod => prod.category === category);
+            resolve(filteredProducts);
+        }, 500)
+    });
+};
