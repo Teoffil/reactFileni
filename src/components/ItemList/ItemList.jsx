@@ -3,7 +3,7 @@ import Item from '../Item/Item.jsx';
 
 const ItemList = ({products}) => {
     return (
-        <div>
+        <div className="item-list-container">
             {products.map(prod => <Item key={prod.id} {...prod} />)}
         </div>
     );
