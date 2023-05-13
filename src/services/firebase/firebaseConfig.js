@@ -2,8 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 
-
-
 const firebaseConfig = {
     authDomain: "react-2023-fdf7c.firebaseapp.com",
     projectId: "react-2023-fdf7c",
