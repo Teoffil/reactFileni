@@ -8,60 +8,69 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false);
     const [orderId, setOrderId] = useState('');
 
-    const { cart, total, clearCart } = useContext(CartContext);
+    const { cart, getTotalPrice, clearCart } = useContext(CartContext);
 
-    const createOrder = async ({ nombre, phone, email }) => {
+    const createOrder = async ({ name, phone, email }) => {
         try {
-            const objOrder = {
-                buyer: {
-                    nombre, phone, email
-                },
-                items: cart,
-                total: total,
-                date: Timestamp.fromDate(new Date())
-            };
+        const objOrder = {
+            buyer: {
+            name,
+            phone,
+            email
+            },
+            items: cart,
+            date: Timestamp.fromDate(new Date())
+        };
 
-            const batch = writeBatch(db);
+        const batch = writeBatch(db);
 
-            const outOfStock = [];
+        const outOfStock = [];
 
-            const ids = cart.map(prod => prod.id)
+        const ids = cart.map(prod => prod.id)
 
-            const productsRef = collection(db, 'productos');
+        const productsRef = collection(db, 'productos');
 
-            const productsAddedFromFirestore = await getDocs(query(productsRef, where('id', 'in', ids)));
+        const productsAddedFromFirestore = await getDocs(query(productsRef, where('id', 'in', ids)));
 
-            const { docs } = productsAddedFromFirestore;
+        const { docs } = productsAddedFromFirestore;
 
-            docs.forEach(doc => {
-                const dataDoc = doc.data();
-                const stockDb = dataDoc.stock;
+        docs.forEach(doc => {
+            const dataDoc = doc.data();
+            const stockDb = dataDoc.stock;
 
-                const productAddedToCart = cart.find(prod => prod.id === doc.id);
-                const prodQuantity = productAddedToCart?.quantity;
+            const productAddedToCart = cart.find(prod => prod.id === doc.id);
+            const prodQuantity = productAddedToCart?.quantity;
 
-                if (stockDb >= prodQuantity) {
-                    batch.update(doc.ref, { stock: stockDb - prodQuantity });
-                } else {
-                    outOfStock.push({ id: doc.id, ...dataDoc });
-                }
-            });
+            if (stockDb >= prodQuantity) {
+            batch.update(doc.ref, { stock: stockDb - prodQuantity });
+            } else {
+            outOfStock.push({ id: doc.id, ...dataDoc });
+            }
+        });
 
-            if (outOfStock.length === 0) {
-                await batch.commit();
-
+        if (outOfStock.length === 0) {
+            await batch.commit();
+        
+            const totalPrice = getTotalPrice(); // Obtiene el precio total usando la función getTotalPrice
+        
+            if (typeof totalPrice !== 'undefined') {
+                objOrder.total = totalPrice;
+        
                 const orderRef = collection(db, 'orders');
                 const orderAdded = await addDoc(orderRef, objOrder);
-
+        
                 setOrderId(orderAdded.id);
                 clearCart();
             } else {
-                console.error('Hay productos que están fuera de stock');
+                console.error('El valor del precio total es indefinido');
             }
+        } else {
+            console.error('Hay productos que están fuera de stock');
+        }
         } catch (error) {
-            console.error(error);
+        console.error(error);
         } finally {
-            setLoading(false);
+        setLoading(false);
         }
     };
 
@@ -75,8 +84,8 @@ const Checkout = () => {
 
     return (
         <div>
-            <h1>Checkout</h1>
-            <CheckoutForm onConfirm={createOrder} />
+        <h1>Checkout</h1>
+        <CheckoutForm onConfirm={createOrder} />
         </div>
     );
 };

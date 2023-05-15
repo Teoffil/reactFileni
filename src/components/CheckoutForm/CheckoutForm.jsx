@@ -2,7 +2,7 @@ import './CheckoutForm.css';
 import { useState } from 'react';
 
 const CheckoutForm = ({ onConfirm }) => {
-  const [nombre, setNombre] = useState('');
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
 
@@ -10,7 +10,7 @@ const CheckoutForm = ({ onConfirm }) => {
     event.preventDefault();
 
     const userData = {
-      nombre,
+      name,
       phone,
       email
     };
@@ -24,13 +24,13 @@ const CheckoutForm = ({ onConfirm }) => {
           Nombre
           <input
             type="text"
-            value={nombre}
-            onChange={({ target }) => setNombre(target.value)}
+            value={name}
+            onChange={({ target }) => setName(target.value)}
           />
         </label>
 
         <label>
-          Telefono
+          Teléfono
           <input
             type="text"
             value={phone}
