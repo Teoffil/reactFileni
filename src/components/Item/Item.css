@@ -1,13 +1,15 @@
-.card {
+.item-card {
     max-width: 300px;
     margin: 0 10px;
+    height: 550px;
 }
 
-/* .cardAltura {
-    height: 400px;
+.cardAltura {
     margin-bottom: 20px;
-} */
+    position: relative; 
+}
 
-.card-group > .card:last-child {
-    float: left;
-}  
+.card-button {
+    position: absolute;
+    bottom: 10px; 
+}

@@ -26,7 +26,6 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/">Sobre Nosotros</Nav.Link>
                     <NavDropdown title="Categorías" id="basic-nav-dropdown">
                         <NavDropdown.Item>
                             <NavLink to='/category/motherboards' className={({ isActive }) => isActive ? 'ActiveOption' : 'Option'}>Motherboards</NavLink>

@@ -3,6 +3,8 @@ import { db } from '../../services/firebase/firebaseConfig';
 import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext.jsx';
 import CheckoutForm from '../CheckoutForm/CheckoutForm.jsx';
+import './Checkout.css';
+
 
 const Checkout = () => {
     const [loading, setLoading] = useState(false);
@@ -26,7 +28,7 @@ const Checkout = () => {
 
         const outOfStock = [];
 
-        const ids = cart.map(prod => prod.id)
+        const ids = cart.map(prod => prod.id);
 
         const productsRef = collection(db, 'productos');
 
@@ -50,19 +52,19 @@ const Checkout = () => {
 
         if (outOfStock.length === 0) {
             await batch.commit();
-        
+
             const totalPrice = getTotalPrice(); // Obtiene el precio total usando la función getTotalPrice
-        
+
             if (typeof totalPrice !== 'undefined') {
-                objOrder.total = totalPrice;
-        
-                const orderRef = collection(db, 'orders');
-                const orderAdded = await addDoc(orderRef, objOrder);
-        
-                setOrderId(orderAdded.id);
-                clearCart();
+            objOrder.total = totalPrice;
+
+            const orderRef = collection(db, 'orders');
+            const orderAdded = await addDoc(orderRef, objOrder);
+
+            setOrderId(orderAdded.id);
+            clearCart();
             } else {
-                console.error('El valor del precio total es indefinido');
+            console.error('El valor del precio total es indefinido');
             }
         } else {
             console.error('Hay productos que están fuera de stock');
@@ -79,7 +81,12 @@ const Checkout = () => {
     }
 
     if (orderId) {
-        return <h1>El id de su orden es: {orderId}</h1>;
+        return (
+        <div className="order-confirmation">
+            <h1>El id de su orden es: {orderId}</h1>
+            <p className="order-thanks">Gracias por su compra, nos estaremos contactando a través del id de la compra.</p>
+        </div>
+        );
     }
 
     return (
